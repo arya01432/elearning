@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>E Learning WebApp</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+
+<style>
+	* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background: #D7DDE5;
+    font-family: "Roboto", sans-serif;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 5%;
+    align-items: center;
+    background: #18283B;
+}
+
+.logo {
+    color: #FFF;
+    font-size: 22px;
+}
+
+ul {
+    list-style: none;
+}
+
+ul li {
+    display: inline-block;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #8291A5;
+    padding: 8px 30px;
+    border-radius: 7px;
+    transition: all .3s ease;
+}
+
+ul li a:hover,
+ul li a.active {
+    color: #FFF;
+    background: #0075FF;
+}
+
+#icon {
+    background-color: #0075FF;
+    padding: 5px 7px 3px 7px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+#icon svg {
+    color: #FFF;
+    height: 28px;
+    transition: all .3s ease;
+}
+
+#icon:hover {
+    background: #FFF;
+}
+
+#icon:hover svg {
+    color: #0075FF;
+}
+
+#checkbox,
+#icon {
+    display: none;
+}
+/* Youtube link */
+.link {
+    position: fixed;
+    background-color: #D12322;
+    padding: 23px 40px;
+    right: -100px;
+    border-radius: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    transform: rotate(-90deg);
+    font-size: 18px;
+    font-weight: 500;
+    color: #FFF;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all .1s ease-in-out;
+}
+
+
+
+.link i {
+    padding-left: 7px;
+}
+
+.link:hover {
+    text-decoration: underline;
+    background-color: black;
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        border-bottom: 1px solid #455468;
+    }
+
+    ul {
+        position: absolute;
+        width: 100%;
+        height: calc(100vh - 71px);
+        background-color: #18283B;
+        left: 0;
+        top: 0;
+        text-align: center;
+        display: none;
+        margin-top: 71px;
+    }
+
+    ul li {
+        display: block;
+        padding: 10px 15px;
+    }
+
+    ul li a {
+        display: block;
+        padding: 10px 0;
+    }
+
+    #icon {
+        display: block;
+    }
+
+    #checkbox:checked~ul {
+        display: block;
+    }
+}
+
+</style>
+
+
+<body>
+
+
+	<nav>
+        <div class="logo"><a th:href = "@{/backUser/{id}(id=${userId})}" th:text="${userLogin}"></a></div>
+        <input type="checkbox" id="checkbox">
+        <label for="checkbox" id="icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </label>
+        <ul>
+            <!-- <li><a th:href = "@{/backUser/{id}(id=${userId})}" class="active">Home</a></li> -->
+            <li><a th:href = "@{/contact/{id}(id=${userId})}"> Contact</a>
+            <li><a th:href = "@{/feedback/{id}(id=${userId})}"> Feedback</a></li>
+            <li><a th:href = "@{/enrollCourse/{id}(id=${userId})}"> Course</a></li>
+            <li><a th:href = "@{/enrolledCourse/{id}(id=${userId})}">My Course</a></li>
+            <li><a th:href = "@{/userFormBoth}" >Logout</a></li>
+        </ul>
+    </nav>
+<!-- <a href="https://github.com/arya01432/" target="_blank" class="link1">View Code on github <i class="fab fa-youtube"></i></a> -->
+<a th:href="@{/deleteUser/{id}(id=${userId})}" class="link">Delete Your Account<i class="fab fa-youtube"></i></a>
+
+
+<div class="container my-2">
+    <h1 style="margin-top: 50px;color: black;">Welcome to ThinkNEXT</h1>
+    <hr>
+		<h2>Update User</h2>
+
+		<form action="#" th:action="@{/updateUser}" th:object="${user}"
+			method="POST">
+			
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}" />
+			
+            <div>
+				<label>Full Name:</label>
+			<input type="text" th:field="*{name}"
+				placeholder="User Name" class="form-control mb-4 col-4">
+            </div>
+            <div>
+				<label>Phone Number:</label>
+				<input type="text" th:field="*{phoneNo}"
+				placeholder="Phone Number" class="form-control mb-4 col-4">
+            </div>
+            <div>
+				<label>Email:</label>
+				<input type="email" th:field="*{email}"
+				placeholder="Email" class="form-control mb-4 col-4">
+            </div>
+
+            <div>
+				<label>Address:</label>
+				<input type="text" th:field="*{address}"
+				placeholder="Address" class="form-control mb-4 col-4">
+            </div>
+
+            <div>
+				<label>Reg. Date:</label>
+				<input type="date" th:field="*{regDate}"
+				placeholder="Reg Date" class="form-control mb-4 col-4">
+            </div>
+
+            <div>
+				<label>Password:</label>
+				<input type="password" th:field="*{password}"
+				placeholder="Password" class="form-control mb-4 col-4">
+            </div>
+
+				<div>
+
+                    <label>Profile Photo: </label>
+                    <input type="file" th:field="*{uploadPhoto}"
+                    class="form-control mb-4 col-4">
+                </div>
+
+				<button type="submit" class="btn btn-info col-2"> Update</button>
+		</form>
+		
+		<hr>
+		
+	</div>
+</body>
+</html>
