@@ -1,15 +1,13 @@
 pipeline {
-  agent {
-    docker { image 'node:16-alpine'
-           }
-  }
+  agent { dockerfile true }
   stages {
     stage('Test') {
-      environment {
-         HOME="."
-         }
       steps {
-        sh 'node --version'
+        sh '''
+          node --version
+          git --version
+          curl --version
+        '''
       }
     }
   }
