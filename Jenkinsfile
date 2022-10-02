@@ -23,9 +23,7 @@ pipeline {
 
         stage ('Deployment Stage') {
             steps {
-                withMaven(maven : 'java') {
-                    bat 'java jar target/elearning-0.0.1'
-                }
+                    bat 'java -jar target/elearning-0.0.1'
             }
         }
     }
